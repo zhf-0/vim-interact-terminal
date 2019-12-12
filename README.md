@@ -10,13 +10,13 @@ The short cut is `<leader>s`.
 - in `visual mode`: typing `<leader>s` will send the selected lines to the console and execute
 
 example
-![1gif](1.gif)
+![1gif](./pic/1.gif)
 send commands with indent
-![2gif](2.gif)
+![2gif](./pic/2.gif)
 bash command
-![3](3.gif)
+![3](./pic/3.gif)
 
 # issue
 There will be two indents in `ipython` console.
-![4](4.gif)
+![4](./pic/4.gif)
 This is because `ipython` console will add one indent automatically. This issue will be solved in the future.
