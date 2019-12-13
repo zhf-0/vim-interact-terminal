@@ -17,6 +17,5 @@ bash command
 ![3](./pic/3.gif)
 
 # issue
-There will be two indents in `ipython` console.
+- There will be two indents in `ipython` console.This is because `ipython` console will add one indent automatically, which is quite different in `python` console. This issue will be solved in the future. ==Solved==
 ![4](./pic/4.gif)
-This is because `ipython` console will add one indent automatically. This issue will be solved in the future.

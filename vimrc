@@ -20,16 +20,25 @@ function! VisualSendToTerminal()
     if len(buff_n) > 0
         let buff_n = buff_n[0] " sends to most recently opened terminal
         let lines = Get_visual_selection()        
-		let indent = match(lines[0], '[^ \t]') " check for removing unnecessary indent
-        for l in lines
-            let new_indent = match(l, '[^ \t]')
-            if new_indent == 0
-                call term_sendkeys(buff_n, l. "\<CR>")
-            else
-                call term_sendkeys(buff_n, l[indent:]. "\<CR>")
-            endif
-            sleep 10m
-        endfor
+		let title = bufname(buff_n) 
+		let res = match(title,'!python') " check the console is python or ipython
+		if  res == 0   
+			let indent = match(lines[0], '[^ \t]') " check for removing unnecessary indent
+			for l in lines
+				let new_indent = match(l, '[^ \t]')
+				if new_indent == 0
+					call term_sendkeys(buff_n, l. "\<CR>")
+				else
+					call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+				endif
+				sleep 10m
+			endfor
+		else 
+			for l in lines
+				let new_indent = match(l, '[^ \t]')
+				call term_sendkeys(buff_n, l[new_indent:]. "\<CR>")
+				sleep 10m
+			endfor 
+		endif 
     endif
 endfunction
-
