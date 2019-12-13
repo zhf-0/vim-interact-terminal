@@ -1,6 +1,15 @@
 # vim-interact-terminal
 Interact wtih the terminal in vim 8.1 especially for Python programming. Theoretically, it can also be used for bash and other languages although. The main fecture is sending the commands to the console and execute without considering the indent problem!
 
+Advantages compared with other similar plugins
+- installation and configuration are so easy without any effort. In fact there is no configuration at all!
+- support multiple language, including `Python`,`bash`
+- support virtual environment of `Python` naturally, which can be verified by following steps
+	- activate one `venv`,
+	- open a `*.py` using `vim`
+	- type`:terminal` to open a built-in terminal
+	- type `pip show numpy`(or other packages), which can list the location of package. Using the location to tell whether it's in the virtual environment or not
+
 # install
 Copy the content in `vimrc` to the vim config file, eg`~/.vimrc`.
 
