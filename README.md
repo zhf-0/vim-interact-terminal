@@ -1,5 +1,5 @@
 # vim-interact-terminal
-Interact wtih the terminal in vim 8.1 especially for Python programming. Theoretically, it can also be used for bash and other languages. The main fecture is sending the commands to the console and execute without considering the indent problem !
+Interact wtih the terminal in vim 8.1 especially for Python programming. Theoretically, it can also be used for bash and other languages. The main feature is sending the commands to the console and execute without considering the indent problem !
 
 Advantages compared with other similar plugins
 - installation and configuration are so easy without any effort. In fact there is no configuration at all !
