@@ -17,6 +17,7 @@ Copy the content in `vimrc` to the vim config file, eg`~/.vimrc`.
 The short cut is `<leader>s`.
 - in `normal mode`: typing `<leader>s` will send the current line to the console and execute
 - in `visual mode`: typing `<leader>s` will send the selected lines to the console and execute
+- in `visual mode`: typing `<leader>ss` will just send the selected content (usually a few words in the same line) to the console without executing and changing line
 
 example
 ![1gif](./pic/1.gif)
@@ -26,6 +27,7 @@ bash command
 ![3](./pic/3.gif)
 
 # issue
+- add new feature: just sending the selected content (usually a few words in the same line) to the console without executing and changing line
 - ==Solved==. There will be two indents in `ipython` console.This is because `ipython` console will add one indent automatically, which is quite different in `python` console. This issue will be solved in the future. 
 `ipython` console
 ![5](./pic/5.gif)

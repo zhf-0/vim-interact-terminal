@@ -2,6 +2,7 @@
 
 nnoremap <leader>s V:call VisualSendToTerminal()<CR>
 vnoremap <leader>s <Esc>:call VisualSendToTerminal()<CR>
+vnoremap <leader>ss <Esc>:call JustSend()<CR>
 
 function! Get_visual_selection()
 	"Shamefully stolen from http://stackoverflow.com/a/6271254/794380
@@ -40,5 +41,15 @@ function! VisualSendToTerminal()
 				sleep 10m
 			endfor 
 		endif 
+    endif
+endfunction
+
+function! JustSend()
+    let buff_n = term_list()
+    if len(buff_n) > 0
+        let buff_n = buff_n[0] " sends to most recently opened terminal
+        let line = Get_visual_selection()
+		    call term_sendkeys(buff_n, line[0])
+            sleep 10m
     endif
 endfunction
