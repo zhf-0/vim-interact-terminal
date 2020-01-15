@@ -2,7 +2,7 @@
 
 nnoremap <leader>s V:call VisualSendToTerminal()<CR>
 vnoremap <leader>s <Esc>:call VisualSendToTerminal()<CR>
-vnoremap <leader>ss <Esc>:call JustSend()<CR>
+vnoremap <leader>j <Esc>:call JustSend()<CR>
 
 function! Get_visual_selection()
 	"Shamefully stolen from http://stackoverflow.com/a/6271254/794380

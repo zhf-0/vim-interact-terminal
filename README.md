@@ -17,7 +17,7 @@ Copy the content in `vimrc` to the vim config file, eg`~/.vimrc`.
 The short cut is `<leader>s`.
 - in `normal mode`: typing `<leader>s` will send the current line to the console and execute
 - in `visual mode`: typing `<leader>s` will send the selected lines to the console and execute
-- in `visual mode`: typing `<leader>ss` will just send the selected content (usually a few words in the same line) to the console without executing and changing line
+- in `visual mode`: typing `<leader>j` will just send the selected content (usually a few words in the same line) to the console without executing and changing line
 
 example
 ![1gif](./pic/1.gif)
