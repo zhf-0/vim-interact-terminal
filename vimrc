@@ -16,40 +16,71 @@ function! Get_visual_selection()
 	return lines
 endfunction
 
+
 function! VisualSendToTerminal()
     let buff_n = term_list()
     if len(buff_n) > 0
         let buff_n = buff_n[0] " sends to most recently opened terminal
         let lines = Get_visual_selection()        
 		let title = bufname(buff_n) 
-		let res = match(title,'!python') " check the console is python or ipython
-		if  res == 0   
+		if  match(title,'!python') == 0   " python console
 			let indent = match(lines[0], '[^ \t]') " check for removing unnecessary indent
 			for l in lines
-				let new_indent = match(l, '[^ \t]')
-				if new_indent == 0
-					call term_sendkeys(buff_n, l. "\<CR>")
-				else
-					call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+				if len(l) > 0
+					let new_indent = match(l, '[^ \t]')
+					if new_indent == 0
+						call term_sendkeys(buff_n, l. "\<CR>")
+					else
+						call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+					endif
+					sleep 10m
 				endif
-				sleep 10m
 			endfor
-		else 
+		elseif match(title,'!ipython') == 0  " ipython console
+			"call term_sendkeys(buff_n, "%autoindent"." \<CR>")
+			let indent = match(lines[0], '[^ \t]') 
+			for l in lines
+				if len(l) > 0
+					let new_indent = match(l, '[^ \t]')
+					if new_indent == 0
+						call term_sendkeys(buff_n, l. "\<CR>")
+					else
+						call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+					endif
+					call term_wait(buff_n)
+				endif
+			endfor
+			"call term_sendkeys(buff_n, "%autoindent"."\<CR>")
+		else  "  others console
 			for l in lines
 				let new_indent = match(l, '[^ \t]')
 				call term_sendkeys(buff_n, l[new_indent:]. "\<CR>")
-				sleep 10m
+				call term_wait(buff_n)
+				"sleep 10m
 			endfor 
 		endif 
     endif
 endfunction
+
 
 function! JustSend()
     let buff_n = term_list()
     if len(buff_n) > 0
         let buff_n = buff_n[0] " sends to most recently opened terminal
         let line = Get_visual_selection()
-		    call term_sendkeys(buff_n, line[0])
-            sleep 10m
+		let length = len(line)
+		if length == 1
+			call term_sendkeys(buff_n, line[0])
+			sleep 10m
+		else 
+			for l in range(0,length-2)
+				if len(line(l)) > 0
+					call term_sendkeys(buff_n, line[l]. "\<CR>")
+					sleep 10m
+				endif
+			endfor
+			call term_sendkeys(buff_n, line[length-1])
+			sleep 10m
+		endif
     endif
 endfunction

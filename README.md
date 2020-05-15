@@ -10,6 +10,12 @@ Advantages compared with other similar plugins
 	- type`:terminal` to open a built-in terminal
 	- type `pip show numpy`(or other packages), which can list the location of package. Using the location to tell whether it's in the virtual environment or not
 
+Warning : if you are using `ipython`, don't forget to open the console with `--no-autoindent`
+```python
+:terminal ipython --no-autoindent
+```
+Otherwise this script can't work properly!
+
 # install
 Copy the content in `vimrc` to the vim config file, eg`~/.vimrc`.
 
@@ -17,7 +23,7 @@ Copy the content in `vimrc` to the vim config file, eg`~/.vimrc`.
 The short cut is `<leader>s`.
 - in `normal mode`: typing `<leader>s` will send the current line to the console and execute
 - in `visual mode`: typing `<leader>s` will send the selected lines to the console and execute
-- in `visual mode`: typing `<leader>j` will just send the selected content (usually a few words in the same line) to the console without executing and changing line
+- in `visual mode`: typing `<leader>j` will just send the selected content, which can be a few words in one line or several lines, to the console without executing
 
 example
 ![1gif](./pic/1.gif)
@@ -27,8 +33,9 @@ bash command
 ![3](./pic/3.gif)
 
 # issue
-- add new feature: just sending the selected content (usually a few words in the same line) to the console without executing and changing line
-- ==Solved==. There will be two indents in `ipython` console.This is because `ipython` console will add one indent automatically, which is quite different in `python` console. This issue will be solved in the future. 
+- ==Solved== : can't send long text in `ipython`, and reason is explained in [jpalardy/vim-slime](https://github.com/jpalardy/vim-slime/blob/master/autoload/slime.vim). The magic function in `ipython` can't reach the target, which is explained in [Turn off IPython autoindent on submit #71](https://github.com/kassio/neoterm/issues/71). The way to solve the issue is:disable the autoindent in `ipython`.s
+- Add new feature : just sending the selected content to the console without executing
+- ==Solved== : There will be two indents in `ipython` console.This is because `ipython` console will add one indent automatically, which is quite different in `python` console. This issue will be solved in the future. 
 `ipython` console
 ![5](./pic/5.gif)
 `python` console
