@@ -36,6 +36,7 @@ function! VisualSendToTerminal()
 					sleep 10m
 				endif
 			endfor
+			call term_sendkeys(buff_n,"\<CR>")
 		elseif match(title,'!ipython') == 0  " ipython console
 			"call term_sendkeys(buff_n, "%autoindent"." \<CR>")
 			let indent = match(lines[0], '[^ \t]') 
@@ -50,6 +51,7 @@ function! VisualSendToTerminal()
 					call term_wait(buff_n)
 				endif
 			endfor
+			call term_sendkeys(buff_n,"\<CR>")
 			"call term_sendkeys(buff_n, "%autoindent"."\<CR>")
 		else  "  others console
 			for l in lines
