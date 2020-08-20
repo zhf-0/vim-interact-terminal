@@ -3,6 +3,8 @@
 nnoremap <leader>s V:call VisualSendToTerminal()<CR>
 vnoremap <leader>s <Esc>:call VisualSendToTerminal()<CR>
 vnoremap <leader>j <Esc>:call JustSend()<CR>
+command Ip3 terminal ipython3 --no-autoindent
+command P3 terminal python3
 
 function! Get_visual_selection()
 	"Shamefully stolen from http://stackoverflow.com/a/6271254/794380
@@ -25,20 +27,32 @@ function! VisualSendToTerminal()
 		let title = bufname(buff_n) 
 		if  match(title,'!python') == 0   " python console
 			let indent = match(lines[0], '[^ \t]') " check for removing unnecessary indent
+			let block_flag = 0
 			for l in lines
 				if len(l) > 0
+					let res1 = matchstr(l,'\v if|for|def|with|class|while|try')
+					let res2 = matchstr(l,'\v else|elif|except|finally')
 					let new_indent = match(l, '[^ \t]')
-					if new_indent == 0
-						call term_sendkeys(buff_n, l. "\<CR>")
-					else
-						call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+					
+					if new_indent == indent
+						if block_flag == 0 && res1 != ''  " the begin of block
+							let block_flag = 1
+						elseif block_flag == 1 && res1 != '' " two continue blocks
+							call term_sendkeys(buff_n,"\<CR>")
+							call term_wait(buff_n)
+						elseif  block_flag == 1 && res1 == '' && res2 == '' " the end of block, must ensure res2 = '',otherwise the block will be broken 
+							call term_sendkeys(buff_n,"\<CR>")
+							let block_flag = 0
+							call term_wait(buff_n)
+						endif
 					endif
-					sleep 10m
+
+					call term_sendkeys(buff_n, l[indent:]. "\<CR>")
+					call term_wait(buff_n)
 				endif
 			endfor
 			call term_sendkeys(buff_n,"\<CR>")
 		elseif match(title,'!ipython') == 0  " ipython console
-			"call term_sendkeys(buff_n, "%autoindent"." \<CR>")
 			let indent = match(lines[0], '[^ \t]') 
 			for l in lines
 				if len(l) > 0
@@ -52,13 +66,11 @@ function! VisualSendToTerminal()
 				endif
 			endfor
 			call term_sendkeys(buff_n,"\<CR>")
-			"call term_sendkeys(buff_n, "%autoindent"."\<CR>")
 		else  "  others console
 			for l in lines
 				let new_indent = match(l, '[^ \t]')
 				call term_sendkeys(buff_n, l[new_indent:]. "\<CR>")
 				call term_wait(buff_n)
-				"sleep 10m
 			endfor 
 		endif 
     endif
